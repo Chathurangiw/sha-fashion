@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHA Fashion | ශා ෆැෂන්</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Noto+Sans+Sinhala:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C0141E;
+    --red-dark: #8B0000;
+    --red-light: #E8303A;
+    --black: #0A0A0A;
+    --black-soft: #1A1A1A;
+    --black-mid: #2C2C2C;
+    --gold: #C9A84C;
+    --white: #FAF8F5;
+    --white-warm: #F0EDE8;
+    --text-muted: #888;
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Cormorant Garamond', serif;
+    --font-sinhala: 'Noto Sans Sinhala', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* CURSOR */
+  body { cursor: crosshair; }
+  a, button { cursor: pointer; }
+
+  /* ===== NAVBAR ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 20px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(2px);
+    border-bottom: 1px solid rgba(192,20,30,0.15);
+    transition: all 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(10,10,10,0.98);
+    border-bottom-color: rgba(192,20,30,0.4);
+    padding: 14px 60px;
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 6px;
+    color: var(--white);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .logo span.sha { color: var(--red); }
+  .logo small {
+    font-family: var(--font-sinhala);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    font-weight: 300;
+    margin-top: 3px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-family: var(--font-body);
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--white-warm);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 100%;
+    height: 1px;
+    background: var(--red);
+    transition: right 0.3s ease;
+  }
+
+  .nav-links a:hover { color: var(--red-light); }
+  .nav-links a:hover::after { right: 0; }
+
+  /* Language Toggle */
+  .lang-toggle {
+    display: flex;
+    gap: 0;
+    border: 1px solid rgba(192,20,30,0.5);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .lang-btn {
+    padding: 6px 14px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    font-family: var(--font-body);
+  }
+
+  .lang-btn.active {
+    background: var(--red);
+    color: var(--white);
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 25px; height: 2px;
+    background: var(--white);
+    transition: all 0.3s;
+  }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 140px 60px 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-size: 12px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 900;
+    line-height: 0.95;
+    margin-bottom: 30px;
+    color: var(--white);
+  }
+
+  .hero-title .accent { color: var(--red); }
+
+  .hero-sub {
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-muted);
+    max-width: 420px;
+    margin-bottom: 50px;
+  }
+
+  .hero-sub-si {
+    font-family: var(--font-sinhala);
+    font-size: 14px;
+    color: rgba(200,200,200,0.5);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .btn-group { display: flex; gap: 20px; flex-wrap: wrap; }
+
+  .btn-primary {
+    padding: 16px 44px;
+    background: var(--red);
+    color: var(--white);
+    border: none;
+    font-family: var(--font-body);
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--red-dark);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+  }
+
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-primary span { position: relative; z-index: 1; }
+
+  .btn-outline {
+    padding: 16px 44px;
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.3);
+    font-family: var(--font-body);
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.4s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--red);
+    color: var(--red-light);
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: 'SHA';
+    position: absolute;
+    font-family: var(--font-display);
+    font-size: 320px;
+    font-weight: 900;
+    color: rgba(192,20,30,0.06);
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 1;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 100%;
+    gap: 3px;
+    padding: 100px 40px 40px 20px;
+  }
+
+  .hero-img-card {
+    background: var(--black-mid);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-img-card:first-child {
+    grid-row: span 2;
+    background: linear-gradient(135deg, #1a0a0a 0%, #2C0810 50%, #1a0a0a 100%);
+  }
+
+  .hero-img-card .img-label {
+    position: absolute;
+    bottom: 20px; left: 20px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .fashion-icon {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 80px;
+    opacity: 0.3;
+  }
+
+  .hero-img-card:nth-child(2) { background: linear-gradient(135deg, #1C1010 0%, #2a0a0a 100%); }
+  .hero-img-card:nth-child(3) { background: linear-gradient(135deg, #0F0F0F 0%, #1C1010 100%); }
+
+  .diagonal-line {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
+    background: var(--black);
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  }
+
+  /* ===== MARQUEE ===== */
+  .marquee-strip {
+    background: var(--red);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee-inner {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+  }
+
+  .marquee-inner span {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.9);
+    padding: 0 40px;
+  }
+
+  .marquee-inner .dot { color: var(--gold); }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ===== SECTIONS COMMON ===== */
+  section { padding: 100px 60px; }
+
+  .section-tag {
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4vw, 60px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .section-title-si {
+    font-family: var(--font-sinhala);
+    font-size: 14px;
+    color: rgba(200,200,200,0.4);
+    font-weight: 300;
+    display: block;
+    margin-bottom: 30px;
+  }
+
+  .section-desc {
+    color: var(--text-muted);
+    max-width: 560px;
+    font-size: 17px;
+  }
+
+  /* ===== ABOUT ===== */
+  #about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    background: var(--black-soft);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #about::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, transparent, var(--red), transparent);
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-main-box {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, var(--black-mid) 0%, #1C0508 50%, var(--black-mid) 100%);
+    position: relative;
+    border: 1px solid rgba(192,20,30,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 120px;
+    opacity: 0.6;
+  }
+
+  .about-badge {
+    position: absolute;
+    bottom: -30px; right: -30px;
+    width: 140px; height: 140px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 4px solid var(--black-soft);
+  }
+
+  .about-badge strong {
+    font-family: var(--font-display);
+    font-size: 38px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .about-badge small {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 50px;
+    padding-top: 50px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .stat-item { text-align: center; }
+
+  .stat-item .num {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--red);
+    line-height: 1;
+  }
+
+  .stat-item .label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 8px;
+  }
+
+  .stat-item .label-si {
+    font-family: var(--font-sinhala);
+    font-size: 11px;
+    color: rgba(200,200,200,0.3);
+  }
+
+  /* ===== COLLECTIONS ===== */
+  #collections {
+    background: var(--black);
+  }
+
+  .collections-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+
+  .collection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+  }
+
+  .collection-card {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    cursor: pointer;
+    group: true;
+  }
+
+  .collection-card:first-child {
+    grid-column: span 2;
+    aspect-ratio: 2/1.3;
+  }
+
+  .card-bg {
+    width: 100%; height: 100%;
+    background: var(--black-mid);
+    transition: transform 0.6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    position: relative;
+  }
+
+  .collection-card:nth-child(1) .card-bg { background: linear-gradient(135deg, #1C0508 0%, #2C0810 40%, #1a0a0a 100%); }
+  .collection-card:nth-child(2) .card-bg { background: linear-gradient(135deg, #0D0D0D 0%, #1A1A1A 100%); }
+  .collection-card:nth-child(3) .card-bg { background: linear-gradient(135deg, #1C1010 0%, #0A0A0A 100%); }
+  .collection-card:nth-child(4) .card-bg { background: linear-gradient(135deg, #120508 0%, #2C0810 100%); }
+
+  .collection-card:hover .card-bg { transform: scale(1.06); }
+
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 30px;
+    transition: all 0.4s;
+  }
+
+  .card-cat {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .card-title-si {
+    font-family: var(--font-sinhala);
+    font-size: 13px;
+    color: rgba(200,200,200,0.5);
+    display: block;
+    margin-top: 4px;
+  }
+
+  .card-arrow {
+    width: 44px; height: 44px;
+    border: 1px solid rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    font-size: 18px;
+    transition: all 0.3s;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .collection-card:hover .card-arrow {
+    opacity: 1;
+    transform: translateY(0);
+    background: var(--red);
+    border-color: var(--red);
+  }
+
+  /* ===== SERVICES ===== */
+  #services {
+    background: var(--black-soft);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+  }
+
+  .service-card {
+    padding: 50px 40px;
+    background: var(--black);
+    border: 1px solid rgba(255,255,255,0.04);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--red);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-card:hover {
+    background: rgba(192,20,30,0.05);
+    border-color: rgba(192,20,30,0.2);
+  }
+
+  .service-icon {
+    font-size: 42px;
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  .service-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--white);
+  }
+
+  .service-title-si {
+    font-family: var(--font-sinhala);
+    font-size: 12px;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+
+  .service-desc {
+    color: var(--text-muted);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .service-num {
+    position: absolute;
+    top: 30px; right: 30px;
+    font-family: var(--font-display);
+    font-size: 72px;
+    font-weight: 900;
+    color: rgba(192,20,30,0.06);
+    line-height: 1;
+  }
+
+  /* ===== TESTIMONIALS ===== */
+  #testimonials {
+    background: var(--black);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #testimonials::before {
+    content: '❝';
+    position: absolute;
+    font-size: 400px;
+    font-family: Georgia, serif;
+    color: rgba(192,20,30,0.04);
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 1;
+  }
+
+  .testimonials-track {
+    display: flex;
+    gap: 30px;
+    margin-top: 60px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 10px;
+  }
+
+  .testimonials-track::-webkit-scrollbar { display: none; }
+
+  .testimonial-card {
+    min-width: 380px;
+    padding: 50px;
+    background: var(--black-soft);
+    border: 1px solid rgba(255,255,255,0.06);
+    text-align: left;
+    position: relative;
+    flex-shrink: 0;
+    transition: border-color 0.3s;
+  }
+
+  .testimonial-card:hover { border-color: rgba(192,20,30,0.3); }
+
+  .stars {
+    color: var(--gold);
+    font-size: 16px;
+    letter-spacing: 3px;
+    margin-bottom: 24px;
+  }
+
+  .testimonial-text {
+    font-style: italic;
+    font-size: 18px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.7;
+    margin-bottom: 30px;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .author-avatar {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--red-dark), var(--red));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    border: 2px solid rgba(192,20,30,0.4);
+  }
+
+  .author-name {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .author-loc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* ===== CONTACT ===== */
+  #contact {
+    background: var(--black-soft);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-info { padding-top: 20px; }
+
+  .contact-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .contact-item:last-of-type { border-bottom: none; }
+
+  .contact-icon {
+    width: 52px; height: 52px;
+    background: rgba(192,20,30,0.15);
+    border: 1px solid rgba(192,20,30,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .contact-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .contact-value {
+    font-size: 17px;
+    color: var(--white-warm);
+  }
+
+  .contact-value-si {
+    font-family: var(--font-sinhala);
+    font-size: 13px;
+    color: rgba(200,200,200,0.4);
+    display: block;
+    margin-top: 4px;
+  }
+
+  .contact-form { }
+
+  .form-group { margin-bottom: 24px; }
+
+  .form-label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 16px;
+    transition: all 0.3s;
+    outline: none;
+    border-radius: 0;
+  }
+
+  .form-textarea { resize: vertical; min-height: 120px; }
+
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--red);
+    background: rgba(192,20,30,0.05);
+  }
+
+  .form-select option { background: var(--black); }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--black);
+    padding: 80px 60px 40px;
+    border-top: 1px solid rgba(192,20,30,0.2);
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
+
+  .footer-brand .logo {
+    font-size: 32px;
+    margin-bottom: 20px;
+    display: inline-flex;
+  }
+
+  .footer-desc {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .footer-desc-si {
+    font-family: var(--font-sinhala);
+    font-size: 12px;
+    color: rgba(200,200,200,0.3);
+    display: block;
+    margin-top: 8px;
+  }
+
+  .social-links { display: flex; gap: 12px; }
+
+  .social-btn {
+    width: 40px; height: 40px;
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s;
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .social-btn:hover {
+    background: var(--red);
+    border-color: var(--red);
+    color: white;
+  }
+
+  .footer-col-title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 24px;
+    letter-spacing: 2px;
+    position: relative;
+    padding-bottom: 14px;
+  }
+
+  .footer-col-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 30px; height: 2px;
+    background: var(--red);
+  }
+
+  .footer-links { list-style: none; }
+
+  .footer-links li { margin-bottom: 12px; }
+
+  .footer-links a {
+    font-size: 14px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .footer-links a .si {
+    font-family: var(--font-sinhala);
+    font-size: 11px;
+    color: rgba(200,200,200,0.25);
+  }
+
+  .footer-links a:hover { color: var(--red-light); }
+
+  .footer-bottom {
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-copy {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .footer-copy span { color: var(--red); }
+
+  .footer-copy-si {
+    font-family: var(--font-sinhala);
+    font-size: 11px;
+    color: rgba(200,200,200,0.3);
+    display: block;
+    margin-top: 4px;
+  }
+
+  /* ===== SCROLL TO TOP ===== */
+  #scrollTop {
+    position: fixed;
+    bottom: 40px; right: 40px;
+    width: 50px; height: 50px;
+    background: var(--red);
+    color: white;
+    border: none;
+    font-size: 20px;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    z-index: 999;
+  }
+
+  #scrollTop.show { opacity: 1; pointer-events: all; }
+
+  /* ===== MOBILE NAV ===== */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10,10,10,0.98);
+    z-index: 999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .mobile-menu.open { display: flex; }
+
+  .mobile-menu a {
+    font-family: var(--font-display);
+    font-size: 36px;
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .mobile-menu a:hover { color: var(--red); }
+
+  .mobile-close {
+    position: absolute;
+    top: 30px; right: 30px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 32px;
+    line-height: 1;
+  }
+
+  /* ===== ANIMATIONS ===== */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.2s; }
+  .delay-3 { transition-delay: 0.3s; }
+  .delay-4 { transition-delay: 0.4s; }
+  .delay-5 { transition-delay: 0.5s; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    nav { padding: 18px 30px; }
+    nav.scrolled { padding: 12px 30px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 130px 30px 70px; }
+    section { padding: 70px 30px; }
+    #about { grid-template-columns: 1fr; }
+    .about-visual { display: none; }
+    .services-grid { grid-template-columns: 1fr; }
+    .collection-grid { grid-template-columns: 1fr 1fr; }
+    .collection-card:first-child { grid-column: span 2; }
+    #contact { grid-template-columns: 1fr; gap: 50px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    footer { padding: 60px 30px 30px; }
+    .stats-row { grid-template-columns: repeat(3,1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .collection-grid { grid-template-columns: 1fr; }
+    .collection-card:first-child { grid-column: span 1; }
+    .footer-top { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .hero-title { font-size: 46px; }
+    .btn-group { flex-direction: column; align-items: flex-start; }
+    .stats-row { grid-template-columns: repeat(3, 1fr); gap: 15px; }
+    .stat-item .num { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#hero" class="logo">
+    <div><span class="sha">SHA</span> FASHION</div>
+    <small id="logo-si">ශා ෆැෂන්</small>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" data-en="About" data-si="අපි ගැන">About</a></li>
+    <li><a href="#collections" data-en="Collections" data-si="එකතුව">Collections</a></li>
+    <li><a href="#services" data-en="Services" data-si="සේවා">Services</a></li>
+    <li><a href="#contact" data-en="Contact" data-si="සම්බන්ධ">Contact</a></li>
+  </ul>
+  <div style="display:flex;gap:16px;align-items:center;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('si')">සිං</button>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#about" onclick="toggleMenu()" data-en="About" data-si="අපි ගැන">About</a>
+  <a href="#collections" onclick="toggleMenu()" data-en="Collections" data-si="එකතුව">Collections</a>
+  <a href="#services" onclick="toggleMenu()" data-en="Services" data-si="සේවා">Services</a>
+  <a href="#contact" onclick="toggleMenu()" data-en="Contact" data-si="සම්බන්ධ">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag" id="hero-tag">New Collection 2025</div>
+    <h1 class="hero-title">
+      <span id="hero-title-1">Where Style</span><br>
+      <span class="accent" id="hero-title-2">Meets Soul</span>
+    </h1>
+    <p class="hero-sub" id="hero-sub">Premium garments crafted for the modern Sri Lankan lifestyle.</p>
+    <!-- <span class="hero-sub-si" id="hero-sub-si">නූතන ශ්‍රී ලාංකික ජීවන රටාව සඳහා නිර්මිත ප්‍රිමියම් ඇඳුම්</span> -->
+    <div class="btn-group">
+      <a href="#collections" class="btn-primary"><span id="btn-explore">Explore Collection</span></a>
+      <a href="#contact" class="btn-outline" id="btn-order">Order Now</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-image-grid">
+      <div class="hero-img-card">
+        <span class="fashion-icon">👗</span>
+        <span class="img-label">Women's Wear</span>
+      </div>
+      <div class="hero-img-card">
+        <span class="fashion-icon" style="font-size:50px;">🧥</span>
+        <span class="img-label">Men's Line</span>
+      </div>
+      <div class="hero-img-card">
+        <span class="fashion-icon" style="font-size:50px;">✂️</span>
+        <span class="img-label">Tailored</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>SHA FASHION</span><span class="dot">✦</span>
+    <span data-en="Sri Lankan Elegance" data-si=" ">Sri Lankan Elegance</span><span class="dot">✦</span>
+    <span data-en="Premium Quality" data-si=" ">Premium Quality</span><span class="dot">✦</span>
+    <span data-en="Handcrafted Perfection" data-si=" ">Handcrafted Perfection</span><span class="dot">✦</span>
+    <span>SHA FASHION</span><span class="dot">✦</span>
+    <span data-en="Sri Lankan Elegance" data-si=" ">Sri Lankan Elegance</span><span class="dot">✦</span>
+    <span data-en="Premium Quality" data-si=" ">Premium Quality</span><span class="dot">✦</span>
+    <span data-en="Handcrafted Perfection" data-si=" ">Handcrafted Perfection</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual fade-up">
+    <div class="about-main-box">👗</div>
+    <div class="about-badge">
+      <strong>10+</strong>
+      <small data-en="Years" data-si="වසර">Years</small>
+    </div>
+  </div>
+  <div class="about-content">
+    <p class="section-tag" data-en="Our Story" data-si="අපගේ කතාව">Our Story</p>
+    <h2 class="section-title fade-up" id="about-title">Crafting Excellence<br>Since 2014</h2>
+    <span class="section-title-si" id="about-title-si">2014 සිට විශිෂ්ටත්වය නිර්මාණය කිරීම</span>
+    <p class="section-desc fade-up delay-2" id="about-desc">SHA Fashion is a premier Sri Lankan clothing brand dedicated to blending contemporary design with traditional craftsmanship. We create garments that celebrate identity, confidence, and culture.</p>
+    <p class="section-desc fade-up delay-2" id="about-desc-si" style="font-family:var(--font-sinhala);font-size:14px;color:rgba(200,200,200,0.5);margin-top:12px;display:none;">SHA ෆැෂන් යනු සමකාලීන සැලසුම් සහ සාම්ප්‍රදායික හස්ත කලාව ඒකාබද්ධ කිරීමට කැපවූ ශ්‍රේෂ්ඨ ශ්‍රී ලාංකික ඇඳුම් වෙළඳ නාමයකි.</p>
+    <div class="stats-row">
+      <div class="stat-item fade-up delay-2">
+        <div class="num">500+</div>
+        <div class="label" data-en="Happy Clients" data-si="සතුටු ගනුදෙනුකරුවන්">Happy Clients</div>
+        <div class="label-si">සතුටු ගනුදෙනුකරුවන්</div>
+      </div>
+      <div class="stat-item fade-up delay-3">
+        <div class="num">50+</div>
+        <div class="label" data-en="Designs" data-si="නිර්මාණ">Designs</div>
+        <div class="label-si">නිර්මාණ</div>
+      </div>
+      <div class="stat-item fade-up delay-4">
+        <div class="num">10+</div>
+        <div class="label" data-en="Years Exp." data-si="වසර අත්දැකීම">Years Exp.</div>
+        <div class="label-si">වසර අත්දැකීම</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTIONS -->
+<section id="collections">
+  <div class="collections-header">
+    <div>
+      <p class="section-tag" data-en="Our Collections" data-si="අපගේ එකතුව">Our Collections</p>
+      <h2 class="section-title fade-up" id="coll-title">Signature<br><span class="accent">Styles</span></h2>
+      <span class="section-title-si" id="coll-title-si">ස්වාක්ෂරය ශෛලීන්</span>
+    </div>
+    <a href="#contact" class="btn-outline fade-up" id="btn-view-all">View All →</a>
+  </div>
+
+  <div class="collection-grid">
+    <div class="collection-card fade-up">
+      <div class="card-bg"><span style="opacity:0.3;font-size:100px;">👗</span></div>
+      <div class="card-overlay">
+        <span class="card-cat" data-en="Women's Collection" data-si="කාන්තා එකතුව">Women's Collection</span>
+        <div class="card-title" data-en="Elegant Evening Wear" data-si="අලංකාර සන්ධ්‍යා ඇඳුම්">Elegant Evening Wear</div>
+        <span class="card-title-si">අලංකාර සන්ධ්‍යා ඇඳුම්</span>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+    <div class="collection-card fade-up delay-1">
+      <div class="card-bg"><span style="opacity:0.3;font-size:70px;">🧥</span></div>
+      <div class="card-overlay">
+        <span class="card-cat" data-en="Men's Collection" data-si="පිරිමි එකතුව">Men's Collection</span>
+        <div class="card-title" data-en="Classic Formal" data-si="සාම්ප්‍රදායික රස්මි">Classic Formal</div>
+        <span class="card-title-si">සාම්ප්‍රදායික රස්මි</span>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+    <div class="collection-card fade-up delay-2">
+      <div class="card-bg"><span style="opacity:0.3;font-size:70px;">👔</span></div>
+      <div class="card-overlay">
+        <span class="card-cat" data-en="Traditional" data-si="සාම්ප්‍රදායික">Traditional</span>
+        <div class="card-title" data-en="Kandyan Heritage" data-si="කන්දිය උරුමය">Kandyan Heritage</div>
+        <span class="card-title-si">කන්දිය උරුමය</span>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+    <div class="collection-card fade-up delay-3">
+      <div class="card-bg"><span style="opacity:0.3;font-size:70px;">✂️</span></div>
+      <div class="card-overlay">
+        <span class="card-cat" data-en="Custom" data-si="විශේෂ">Custom</span>
+        <div class="card-title" data-en="Bespoke Tailoring" data-si="පෞද්ගලික縫製">Bespoke Tailoring</div>
+        <span class="card-title-si">පෞද්ගලික縫製</span>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div style="text-align:center;max-width:700px;margin:0 auto;">
+    <p class="section-tag" data-en="What We Offer" data-si="අපි සපයන දෙය">What We Offer</p>
+    <h2 class="section-title fade-up" id="serv-title">Our Premium<br><span class="accent">Services</span></h2>
+    <span class="section-title-si" id="serv-title-si">අපගේ ප්‍රිමියම් සේවා</span>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-up">
+      <span class="service-num">01</span>
+      <span class="service-icon">✂️</span>
+      <div class="service-title" data-en="Custom Tailoring" data-si="විශේෂ縫製">Custom Tailoring</div>
+      <span class="service-title-si" data-en="맞춤 재단" data-si="ඔබේ ශරීරයට ගැළපෙන">ඔබේ ශරීරයට ගැළපෙන</span>
+      <p class="service-desc" id="sd1">Perfectly fitted garments crafted to your exact measurements and personal style preferences. Every stitch tailored for you.</p>
+    </div>
+    <div class="service-card fade-up delay-1">
+      <span class="service-num">02</span>
+      <span class="service-icon">👗</span>
+      <div class="service-title" data-en="Bridal Wear" data-si="මංගල ඇඳුම්">Bridal Wear</div>
+      <span class="service-title-si">විශේෂ මංගල නිර්මාණ</span>
+      <p class="service-desc" id="sd2">Exquisite bridal collections for your most special day. Traditional and modern designs crafted with love and precision.</p>
+    </div>
+    <div class="service-card fade-up delay-2">
+      <span class="service-num">03</span>
+      <span class="service-icon">🏢</span>
+      <div class="service-title" data-en="Corporate Uniform" data-si="ආයතනික ඇඳුම">Corporate Uniform</div>
+      <span class="service-title-si">ව්‍යාපාර ඇඳුම් නිර්මාණ</span>
+      <p class="service-desc" id="sd3">Professional corporate uniforms that represent your brand with style and authority. Bulk orders welcome.</p>
+    </div>
+    <div class="service-card fade-up delay-1">
+      <span class="service-num">04</span>
+      <span class="service-icon">🎨</span>
+      <div class="service-title" data-en="Design Consultation" data-si="සැලසුම් උපදෙස">Design Consultation</div>
+      <span class="service-title-si">ශෛලීය උපදේශනය</span>
+      <p class="service-desc" id="sd4">Work directly with our expert designers to create your dream outfit. Personal style consultations available.</p>
+    </div>
+    <div class="service-card fade-up delay-2">
+      <span class="service-num">05</span>
+      <span class="service-icon">🔧</span>
+      <div class="service-title" data-en="Alterations" data-si="ඇඳුම් නැවත縫製">Alterations</div>
+      <span class="service-title-si">ඇඳුම් වෙනස් කිරීම</span>
+      <p class="service-desc" id="sd5">Quick and professional garment alterations to make your existing clothes fit perfectly again.</p>
+    </div>
+    <div class="service-card fade-up delay-3">
+      <span class="service-num">06</span>
+      <span class="service-icon">📦</span>
+      <div class="service-title" data-en="Bulk Orders" data-si="තොග ඇණවුම">Bulk Orders</div>
+      <span class="service-title-si">විශාල ප්‍රමාණ ඇණවුම</span>
+      <p class="service-desc" id="sd6">Large volume garment production for retailers and businesses. Competitive pricing with uncompromised quality.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <p class="section-tag" data-en="Client Reviews" data-si="ගනුදෙනුකරු සමාලෝචන">Client Reviews</p>
+  <h2 class="section-title fade-up" id="test-title">What Our Clients <span class="accent">Say</span></h2>
+  <span class="section-title-si" id="test-title-si">ගනුදෙනුකරුවන් කියන දෙය</span>
+
+  <div class="testimonials-track">
+    <div class="testimonial-card fade-up">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"The quality of SHA Fashion's work is truly exceptional. My wedding saree was beyond my dreams — every detail was perfect."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">P</div>
+        <div>
+          <div class="author-name">Priya Jayawardena</div>
+          <div class="author-loc">Colombo, Sri Lanka</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-up delay-1">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"ශා ෆැෂන් ගේ සේවාව ඉතා විශිෂ්ටයි. මගේ ඇඳුම් නිවැරදි ලෙස縫製 කර ලබා දුන්නා. ඉතා ගුණාත්මක වැඩ!"</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">ස</div>
+        <div>
+          <div class="author-name">සම්පත් රාජපක්ෂ</div>
+          <div class="author-loc">කන්ද, ශ්‍රී ලංකාව</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-up delay-2">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Our company uniforms turned out impeccably. The team delivered on time with outstanding professionalism. Highly recommended!"</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">R</div>
+        <div>
+          <div class="author-name">Ruwanthi Fernando</div>
+          <div class="author-loc">Gampaha, Sri Lanka</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-up delay-3">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"ඉතා සැහැල්ලු හා ගුණාත්මක ඇඳුම්. SHA ෆැෂන් ශ්‍රී ලංකාවේ හොඳම ඇඳුම් හදන ස්ථානයයි."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">ම</div>
+        <div>
+          <div class="author-name">මාලිනී දිසානායක</div>
+          <div class="author-loc">ගාල්ල, ශ්‍රී ලංකාව</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-info">
+    <p class="section-tag" data-en="Get In Touch" data-si="සම්බන්ධ වන්න">Get In Touch</p>
+    <h2 class="section-title fade-up" id="cont-title">Visit Us or<br><span class="accent">Order Online</span></h2>
+    <span class="section-title-si" id="cont-title-si">රෝදාගන්නන් හෝ ඔන්ලයින් ඇණවුම් කරන්න</span>
+
+    <div class="contact-item">
+      <div class="contact-icon">📍</div>
+      <div>
+        <div class="contact-label" data-en="Our Location" data-si="අපගේ ස්ථානය">Our Location</div>
+        <div class="contact-value">No. 45, Galle Road, Colombo 03<br>Sri Lanka</div>
+        <span class="contact-value-si">45, ගාලු පාර, කොළඹ 03, ශ්‍රී ලංකාව</span>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">📞</div>
+      <div>
+        <div class="contact-label" data-en="Phone / WhatsApp" data-si="දුරකතන / WhatsApp">Phone / WhatsApp</div>
+        <div class="contact-value">+94 77 123 4567</div>
+        <span class="contact-value-si">+94 77 123 4567</span>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">📧</div>
+      <div>
+        <div class="contact-label" data-en="Email" data-si="විද්‍යුත් තැපෑල">Email</div>
+        <div class="contact-value">info@shafashion.lk</div>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">🕐</div>
+      <div>
+        <div class="contact-label" data-en="Working Hours" data-si="වැඩ කරන වේලාවන්">Working Hours</div>
+        <div class="contact-value">Mon – Sat: 8:30 AM – 7:00 PM</div>
+        <span class="contact-value-si">සඳුදා – සෙනසුරාදා: 8:30 – 7:00</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form fade-up delay-2">
+    <form onsubmit="submitForm(event)">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" id="lbl-name">Full Name / නම</label>
+          <input type="text" class="form-input" placeholder="Your Name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" id="lbl-phone">Phone / දුරකතනය</label>
+          <input type="tel" class="form-input" placeholder="+94 77 000 0000">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" id="lbl-email">Email / විද්‍යුත් තැපෑල</label>
+        <input type="email" class="form-input" placeholder="your@email.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" id="lbl-service">Service Required / සේවාව</label>
+        <select class="form-select form-input">
+          <option value="">Select a Service / සේවාවක් තෝරන්න</option>
+          <option>Custom Tailoring / විශේෂ縫製</option>
+          <option>Bridal Wear / මංගල ඇඳුම්</option>
+          <option>Corporate Uniform / ආයතනික ඇඳුම</option>
+          <option>Alterations / ඇඳුම් නැවත縫製</option>
+          <option>Bulk Order / තොග ඇණවුම</option>
+          <option>Design Consultation / සැලසුම් උපදෙස</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" id="lbl-msg">Message / පණිවිඩය</label>
+        <textarea class="form-textarea" placeholder="Tell us about your requirements...&#10;ඔබගේ අවශ්‍යතා ගැන කියන්න..."></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="width:100%;"><span id="btn-send">Send Inquiry / ඇණවුම යවන්න →</span></button>
+    </form>
+    <div id="form-success" style="display:none;padding:30px;background:rgba(192,20,30,0.1);border:1px solid rgba(192,20,30,0.3);margin-top:20px;text-align:center;">
+      <div style="font-size:40px;margin-bottom:16px;">✓</div>
+      <p style="font-family:var(--font-display);font-size:22px;" id="success-msg">Thank you! We'll contact you soon.</p>
+      <p style="font-family:var(--font-sinhala);font-size:13px;color:var(--text-muted);margin-top:8px;">ස්තූතියි! අපි ඉක්මනින් ඔබ හා සම්බන්ධ වෙමු.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#hero" class="logo" style="margin-bottom:20px;">
+        <div><span class="sha">SHA</span> FASHION</div>
+        <small>ශා ෆැෂන් | ශ්‍රී ලංකාව</small>
+      </a>
+      <p class="footer-desc">Sri Lanka's premier garment brand — where tradition meets modern elegance. Creating fashion that celebrates our culture.</p>
+      <span class="footer-desc-si">ශ්‍රී ලංකාවේ ශ්‍රේෂ්ඨ ඇඳුම් වෙළඳ නාමය — සාම්ප්‍රදාය නූතන අලංකාරය සමඟ ඒකාබද්ධ කෙරේ.</span>
+      <div class="social-links" style="margin-top:24px;">
+        <a class="social-btn" href="#" title="Facebook">f</a>
+        <a class="social-btn" href="#" title="Instagram">📷</a>
+        <a class="social-btn" href="#" title="WhatsApp">💬</a>
+        <a class="social-btn" href="#" title="TikTok">♪</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-col-title" data-en="Collections" data-si="එකතුව">Collections</div>
+      <ul class="footer-links">
+        <li><a href="#collections">Women's Wear <span class="si">කාන්තා ඇඳුම</span></a></li>
+        <li><a href="#collections">Men's Wear <span class="si">පිරිමි ඇඳුම</span></a></li>
+        <li><a href="#collections">Bridal Wear <span class="si">මංගල ඇඳුම</span></a></li>
+        <li><a href="#collections">Traditional <span class="si">සාම්ප්‍රදායික</span></a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title" data-en="Services" data-si="සේවා">Services</div>
+      <ul class="footer-links">
+        <li><a href="#services">Custom Tailoring <span class="si">විශේෂ縫製</span></a></li>
+        <li><a href="#services">Alterations <span class="si">නැවත縫製</span></a></li>
+        <li><a href="#services">Corporate Wear <span class="si">ආයතනික ඇඳුම</span></a></li>
+        <li><a href="#services">Bulk Orders <span class="si">තොග ඇණවුම</span></a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title" data-en="Quick Links" data-si="ඉක්මන් සම්බන්ධ">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="#about">About Us <span class="si">අපි ගැන</span></a></li>
+        <li><a href="#collections">Gallery <span class="si">ගැලරිය</span></a></li>
+        <li><a href="#contact">Contact <span class="si">සම්බන්ධ</span></a></li>
+        <li><a href="#contact">Order Now <span class="si">ඇණවුම් කරන්න</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div>
+      <div class="footer-copy">© 2025 <span>SHA Fashion</span>. All rights reserved.</div>
+      <span class="footer-copy-si">© 2025 ශා ෆැෂන්. සියලු හිමිකම් ඇවිරිණි.</span>
+    </div>
+    <div style="font-size:13px;color:var(--text-muted);">Made with <span style="color:var(--red)">♥</span> in Sri Lanka</div>
+  </div>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ===== LANGUAGE SYSTEM =====
+let currentLang = 'en';
+
+const translations = {
+  en: {
+    'hero-tag': 'New Collection 2025',
+    'hero-title-1': 'Where Style',
+    'hero-title-2': 'Meets Soul',
+    'hero-sub': 'Premium garments crafted for the modern Sri Lankan lifestyle.',
+    'btn-explore': 'Explore Collection',
+    'btn-order': 'Order Now',
+    'btn-view-all': 'View All →',
+    'about-title': 'Crafting Excellence\nSince 2014',
+    'about-title-si': '2014 සිට විශිෂ්ටත්වය නිර්මාණය කිරීම',
+    'about-desc': 'SHA Fashion is a premier Sri Lankan clothing brand dedicated to blending contemporary design with traditional craftsmanship. We create garments that celebrate identity, confidence, and culture.',
+    'coll-title-si': 'ස්වාක්ෂරය ශෛලීන්',
+    'serv-title-si': 'අපගේ ප්‍රිමියම් සේවා',
+    'test-title': 'What Our Clients Say',
+    'test-title-si': 'ගනුදෙනුකරුවන් කියන දෙය',
+    'cont-title': 'Visit Us or Order Online',
+    'cont-title-si': 'රෝදාගන්නන් හෝ ඔන්ලයින් ඇණවුම් කරන්න',
+    'btn-send': 'Send Inquiry / ඇණවුම යවන්න →',
+    'success-msg': "Thank you! We'll contact you soon.",
+  },
+  si: {
+    'hero-tag': 'නව එකතුව 2025',
+    'hero-title-1': 'ශෛලිය',
+    'hero-title-2': 'ආත්මය හමු වේ',
+    'hero-sub': 'නූතන ශ්‍රී ලාංකික ජීවන රටාව සඳහා නිර්මිත ප්‍රිමියම් ඇඳුම්.',
+    'btn-explore': 'එකතුව ගවේෂණය කරන්න',
+    'btn-order': 'ඇණවුම් කරන්න',
+    'btn-view-all': 'සියල්ල බලන්න →',
+    'about-title': 'විශිෂ්ටත්වය නිර්මාණය\n2014 සිට',
+    'about-desc': 'SHA ෆැෂන් යනු සමකාලීන සැලසුම් සහ සාම්ප්‍රදායික හස්ත කලාව ඒකාබද්ධ කිරීමට කැපවූ ශ්‍රේෂ්ඨ ශ්‍රී ලාංකික ඇඳුම් වෙළඳ නාමයකි.',
+    'coll-title-si': 'Signature Styles',
+    'serv-title-si': 'Our Premium Services',
+    'test-title': 'ගනුදෙනුකරුවන් කියන දෙය',
+    'test-title-si': 'What Our Clients Say',
+    'cont-title': 'ඒන්න හෝ ඔන්ලයින් ඇණවුම් කරන්න',
+    'cont-title-si': 'Visit Us or Order Online',
+    'btn-send': 'ඇණවුම යවන්න →',
+    'success-msg': 'ස්තූතියි! අපි ඉක්මනින් ඔබ හා සම්බන්ධ වෙමු.',
+  }
+};
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+
+  // Update data-en/si elements
+  document.querySelectorAll('[data-en]').forEach(el => {
+    if (lang === 'en' && el.dataset.en) el.textContent = el.dataset.en;
+    else if (lang === 'si' && el.dataset.si) el.textContent = el.dataset.si;
+  });
+
+  // Update named ids
+  const t = translations[lang];
+  Object.keys(t).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = t[id].replace('\n', '<br>');
+  });
+
+  // about-desc-si visibility
+  const aboutDescSi = document.getElementById('about-desc-si');
+  const aboutDesc = document.getElementById('about-desc');
+  if (lang === 'si') {
+    if (aboutDescSi) aboutDescSi.style.display = 'block';
+    if (aboutDesc) aboutDesc.style.display = 'none';
+  } else {
+    if (aboutDescSi) aboutDescSi.style.display = 'none';
+    if (aboutDesc) aboutDesc.style.display = 'block';
+  }
+
+  document.documentElement.lang = lang === 'si' ? 'si' : 'en';
+}
+
+// ===== NAVBAR SCROLL =====
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 80) navbar.classList.add('scrolled');
+  else navbar.classList.remove('scrolled');
+
+  const scrollBtn = document.getElementById('scrollTop');
+  if (window.scrollY > 400) scrollBtn.classList.add('show');
+  else scrollBtn.classList.remove('show');
+});
+
+// ===== MOBILE MENU =====
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// ===== FADE-UP OBSERVER =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ===== FORM SUBMIT =====
+function submitForm(e) {
+  e.preventDefault();
+  const form = e.target;
+  form.style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+}
+</script>
+</body>
+</html>
